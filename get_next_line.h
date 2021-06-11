@@ -6,7 +6,7 @@
 /*   By: spatez <spatez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 00:53:18 by spatez            #+#    #+#             */
-/*   Updated: 2021/06/10 01:06:22 by spatez           ###   ########.fr       */
+/*   Updated: 2021/06/11 01:50:07 by spatez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int get_next_line(int fd, char **line);
+int	get_next_line(int fd, char **line);
 
 #endif

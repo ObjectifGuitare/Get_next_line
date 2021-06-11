@@ -6,7 +6,7 @@
 /*   By: spatez <spatez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 00:53:22 by spatez            #+#    #+#             */
-/*   Updated: 2021/06/10 02:30:11 by spatez           ###   ########.fr       */
+/*   Updated: 2021/06/11 05:15:36 by spatez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 int get_next_line(int fd, char **line)
 {
-
-	return (-1);
+	static int i;
+	
+	if (fd < 0 || fd == 2)
+		return (-1);
+	i = 0;
+	if (read(fd, line, BUFFER_SIZE) == 0);
+		return (0);
 	return (1);
-	return (0);
+	
 }
 
-int	main(void)
-{
-	while ()
-	{
-		get_next_line(fd, line)
-	}
-	return (0);
-}
+
