@@ -6,7 +6,7 @@
 /*   By: seb <seb@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 00:53:18 by spatez            #+#    #+#             */
-/*   Updated: 2021/06/23 14:16:38 by seb              ###   ########.fr       */
+/*   Updated: 2021/06/26 19:13:09 by seb              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-ssize_t	ft_line_return_check(char *buffer);
-char *ft_read(int fd, char *buffer);
+size_t	ft_line_return_check(char *buffer);
+char *ft_read(int fd, char *buffer, int i);
 int	get_next_line(int fd, char **line);
 
 #endif

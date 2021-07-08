@@ -6,7 +6,7 @@
 /*   By: seb <seb@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 00:53:22 by spatez            #+#    #+#             */
-/*   Updated: 2021/06/23 14:15:49 by seb              ###   ########.fr       */
+/*   Updated: 2021/07/05 10:55:43 by seb              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,82 @@
 
 #include <stdio.h>
 
-ssize_t	ft_line_return_check(char *buffer)
+size_t	ft_line_return_check(char *buffer)
 {
-	// returns the index for the first occurence of \n
-	// -1 if \n not found or if buffer == null
+	// returns the index + 1 for the first occurence of \n
+	// 0 if \n not found or if buffer == null
 	int i;
 
+    printf("entering line return check\n");
 	if (!buffer)
-		return (-1);
+		return (0);
+    printf("buffer was not NULL\n");
 	i = -1;
 	while (buffer[++i])
     {
+        // printf("entering loop in line return check\n");
 		if (buffer[i] == '\n')
 		{
-            if (i < BUFFER_SIZE - 1)
-                buffer[i] = '\0';
-            return (i);
+            printf("line return was found in buffer\n");
+            buffer[i] = '\0';
+            return (i + 1);
         }
     }
-	return (-1);
+    printf("no backslash n was found\n");
+	return (0);
 }
 
-char *ft_read(int fd, char *buffer)
+char *ft_read(int fd, char *buffer, int i)
 {
-    bool eof;
     char *dst;
-
+    
+    printf("entering ft_read\n");
 	dst = NULL;
-	while (ft_line_return_check(dst) == -1)
+    printf("value of i is : %i\n", i);
+    if (i)
+    {
+        printf("entering i condition to read further\n");
+        if (read(fd, buffer, i) == 0)
+        {
+            printf("returning eof\n");
+            return ("\n");
+        }
+    }
+    else
+        printf("read's stream has not been increased\n");
+	while (ft_line_return_check(dst) == 0)
 	{
+        printf("entering ft_read loop\n");
 		buffer = malloc(BUFFER_SIZE + 1);
 		if (!buffer)
 			return (NULL);
-		if (!read(fd, buffer, BUFFER_SIZE))
-			eof = 1;
-		buffer[BUFFER_SIZE] = '\0';
+        read(fd, buffer, BUFFER_SIZE);
+        buffer[BUFFER_SIZE] = '\0';
+        printf("mon buffer après read est : |%s|\n", buffer);
 		dst = ft_strjoin(dst, buffer);
-		// printf("%s\n", dst);
-		// printf("%s\n", buffer);
+        printf("the value of my static variable is : %i\n", i);
+        printf("my line until now is : |%s|\n", dst);
 	}
+    printf("the line to be returned in ft_read is : |%s|\n", dst);
+    printf("the final value of my static variable is : %i\n", i);
     return (dst);
 }
 
 int get_next_line(int fd, char **line)
 {
 	char *buffer;
+    static int i;
 	// check errors
 	buffer = NULL;
-    *line = ft_read(fd, buffer);
-	printf("%s\n", *line);
+    
+    i = 0;
+    // printf("starting get next line for the %i time\n", ++i);
+    *line = ft_read(fd, buffer, i);
+    printf("ft read passed succesfully\n");
+    i += ft_strlen(*line);
+    if (!*line)
+        return (-1);
+    if (**line == '\n')
+        return (0);
     return(1);
 }

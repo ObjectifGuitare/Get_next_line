@@ -29,8 +29,15 @@ int main()
 {
     int fd = open("bonjour", O_RDONLY);
     char *line;
+    int i;
 
-    printf("%d\n", get_next_line(fd, &line));
-    printf("%s\n", line);
+    printf("starting main\n");
+    while ((i = get_next_line(fd, &line)))
+    {
+        printf("-------------\nentering main loop\n");
+        printf("the value returned by gnl is: %d\n", i);
+        printf("the line returned at the end of main loop is : |%s|\n", line);
+        free(line);
+    }
     close(fd);
 }
