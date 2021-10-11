@@ -1,4 +1,5 @@
 #include "get_next_line.h"
+#include <stdio.h>
 
 char *get_next_line(int fd)
 {
@@ -9,6 +10,7 @@ char *get_next_line(int fd)
     if (line)
         line = clean_next_line(line);
     i = -2;
+    buffer = NULL;
     while(clone_buf_in_line(buffer, line, i))
     {
         buffer = malloc(BUFFER_SIZE + 1);
@@ -21,6 +23,7 @@ char *get_next_line(int fd)
         }
         buffer[BUFFER_SIZE] = '\0';
         i = buffer_scan_bsn(buffer);
+        // printf(" VALEUR DE i DANS BUFFER SCAN = | %i |\n", i);
     }
     line = split_me_daddy(line);
     if (!line)

@@ -1,5 +1,5 @@
 #include "get_next_line.h"
-
+#include <stdio.h>
 
 
 size_t	ft_strlen(const char *s)
@@ -11,8 +11,8 @@ size_t	ft_strlen(const char *s)
 		n++;
 	return (n);
 }
-
-char	*ft_strjoin(char const *s1, char const *s2, int b)
+// LINE EST TOUJOURS NULL QUAND IL ARRIVE DANS STRJOIN
+char	*ft_strjoin(char *s1, char *s2, int b)
 {
 	char	*s3;
 	int		i;
@@ -27,6 +27,7 @@ char	*ft_strjoin(char const *s1, char const *s2, int b)
 		return (NULL);
     if (s1)
     {
+        // printf("slt\n");
         while (s1[++i] != '\0')
             s3[j++] = s1[i];
         i = -1;
@@ -36,8 +37,11 @@ char	*ft_strjoin(char const *s1, char const *s2, int b)
     if (b)
         s3[j++] = '\n';
 	s3[j] = '\0';
+    printf("VALEUR DE s1 APRES STRJOIN = |%s|\n", s1);
+    printf("VALEUR DE s2 APRES STRJOIN = |%s|\n", s2);
     free(s1);
     free(s2);
+    printf("VALEUR DE s3 APRES STRJOIN = |%s|\n", s3);
 	return (s3);
 }
 
@@ -48,6 +52,7 @@ ssize_t clone_buf_in_line(char *buffer, char *line, int i)
         return(1);
     if (i == -1)
     {
+        // printf("VALEUR DE LINE = |%s|\n", line);
         line = ft_strjoin(line, buffer, i);
         return (1);
     }
@@ -63,6 +68,7 @@ char *split_me_daddy(char *line)
 
     i = 0;
     j = 0;
+    // printf("slt\n");
     new = malloc(ft_strlen(line) + 3);
     if(!new)
         return (NULL);
