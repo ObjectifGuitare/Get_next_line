@@ -16,6 +16,7 @@ char *get_next_line(int fd)
         if(!read(fd, buffer, BUFFER_SIZE))
         {
             free(buffer);
+            // printf("bonjour\n");
             buffer = clean_eof(buffer);
             return (buffer);
         }

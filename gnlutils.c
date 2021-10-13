@@ -117,8 +117,8 @@ char *clean_eof(char *buffer)
 
     i = 0;
     line = clone_buf_in_line(buffer, -3);
-    line = split_me_daddy(line);
     if(!line)
         return (NULL);
+    line = split_me_daddy(line);
     return (line);
 }
