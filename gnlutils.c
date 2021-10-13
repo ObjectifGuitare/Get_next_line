@@ -12,7 +12,7 @@ size_t	ft_strlen(const char *s)
 	return (n);
 }
 
-char	*ft_strjoin(char *s1, char *s2, int b)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
 	int		i;
@@ -33,17 +33,10 @@ char	*ft_strjoin(char *s1, char *s2, int b)
     }
     while (s2[++i] != '\0')
 		s3[j++] = s2[i];
-    if (b > 0)
-        i++;
-    // {
-        
-    //     printf("|||%s AINSI QUE %i|||\n", s3, b);
-    //     s3[j++] = '\n';
-    // }
     s3[j] = '\0';
     // printf("VALEUR DE s1 APRES STRJOIN = |%s|\n", s1);
     // printf("VALEUR DE s2 APRES STRJOIN = |%s|\n", s2);
-    printf("VALEUR DE s3 APRES STRJOIN = |%s|\n", s3);
+    // printf("VALEUR DE s3 APRES STRJOIN = |%s|\n", s3);
     free(s1);
     free(s2);
 	return (s3);
@@ -64,9 +57,9 @@ char *clone_buf_in_line(char *buffer, int i)
         return("ye");
     }
     // printf("VALEUR DE LINE AVANT JOIN = |%s|\n", line);
-    printf("[[[%i]]]\n", i);
-    line = ft_strjoin(line, buffer, i);
-    // printf("VALEUR DE LINE = |%s|\n", line);
+    // printf("[[[%i]]]\n", i);
+    line = ft_strjoin(line, buffer);
+    // printf("VALEUR DE LINE APRES JOIN = |%s|\n", line);
     if (i == -1)
         return ("ye");
     return ("\0");
@@ -80,7 +73,6 @@ char *split_me_daddy(char *line)
 
     i = 0;
     j = 0;
-    // printf("slt\n");
     new = malloc(ft_strlen(line) + 3);
     if(!new)
         return (NULL);
@@ -116,4 +108,17 @@ char *clean_next_line(char *line)
         new[i++] = *line++;
     new[i] = '\0';
     return (new);
+}
+
+char *clean_eof(char *buffer)
+{
+    char *line;
+    int i;
+
+    i = 0;
+    line = clone_buf_in_line(buffer, -3);
+    line = split_me_daddy(line);
+    if(!line)
+        return (NULL);
+    return (line);
 }
