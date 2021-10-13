@@ -15,9 +15,9 @@ int main()
     fd = open("ouvrebatar", O_RDONLY);
     while(i)
     {
-        printf("\n\n%i EME ITERATION DE GNL\n\n", b);
+        printf("-------------------------------------------------\n-------------------------------------------------\n%i EME ITERATION DE GNL\n\n", b++);
         line =  get_next_line(fd);
-        printf("%s", line);
+        printf("\n\n\nLA LINE DE FIN EST : |%s|\n\n\n", line);
         if (!line)
             i = 0;
     }

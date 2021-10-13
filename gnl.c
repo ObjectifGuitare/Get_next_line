@@ -10,7 +10,7 @@ char *get_next_line(int fd)
     //     line = clean_next_line(line);
     i = -2;
     buffer = NULL;
-    while(clone_buf_in_line(buffer, i))
+    while(clone_buf_in_line(buffer, i) && i < 1)
     {
         buffer = malloc(BUFFER_SIZE + 1);
         if (!buffer)
@@ -22,10 +22,13 @@ char *get_next_line(int fd)
         }
         buffer[BUFFER_SIZE] = '\0';
         i = buffer_scan_bsn(buffer);
+        // printf("%s\n", buffer);
         // printf(" VALEUR DE i DANS BUFFER SCAN = | %i |\n", i);
     }
     i = -3;
+    // printf("bite");
     buffer = clone_buf_in_line(buffer, i);
+    // printf("VALEUR DU BUFFER = |%s|\n", buffer);
     buffer = split_me_daddy(buffer);
     if (!buffer)
         return (NULL);
