@@ -17,7 +17,7 @@ int main()
     {
         printf("-------------------------------------------------\n-------------------------------------------------\n%i EME ITERATION DE GNL\n\n", b++);
         line =  get_next_line(fd);
-        printf("\n\n\nLA LINE DE FIN EST : |%s|\n\n\n", line);
+        printf("\nLA LINE DE FIN EST : |%s|\n", line);
         if (!line)
             i = 0;
     }

@@ -12,6 +12,6 @@ char	*ft_strjoin(char *s1, char *s2);
 char *clone_buf_in_line(char *buffer, int i);
 char *split_me_daddy(char *line);
 char *clean_next_line(char *line);
-char *clean_eof(char *buffer);
+char *clean_eof(char *buffer, int i);
 
 #endif

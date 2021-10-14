@@ -1,6 +1,4 @@
 #include "get_next_line.h"
-#include <stdio.h>
-
 
 size_t	ft_strlen(const char *s)
 {
@@ -26,43 +24,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s3)
 		return (NULL);
     if (s1)
-    {
         while (s1[++i] != '\0')
             s3[j++] = s1[i];
-        i = -1;
-    }
+    i = -1;
     while (s2[++i] != '\0')
 		s3[j++] = s2[i];
     s3[j] = '\0';
-    // printf("VALEUR DE s1 APRES STRJOIN = |%s|\n", s1);
-    // printf("VALEUR DE s2 APRES STRJOIN = |%s|\n", s2);
-    // printf("VALEUR DE s3 APRES STRJOIN = |%s|\n", s3);
     free(s1);
     free(s2);
 	return (s3);
-}
-
-
-char *clone_buf_in_line(char *buffer, int i)
-{
-    static char *line;
-
-    if (i == -3)
-    {
-        return (line);
-    }
-    if(i == -2)
-    {
-        line = clean_next_line(line);
-        return("ye");
-    }
-    // printf("VALEUR DE LINE AVANT JOIN = |%s|\n", line);
-    // printf("[[[%i]]]\n", i);
-    line = ft_strjoin(line, buffer);
-    // printf("VALEUR DE LINE APRES JOIN = |%s|\n", line);
-    if (i == -1)
-        return ("ye");
-    return ("\0");
 }
 
 char *split_me_daddy(char *line)
@@ -83,7 +53,7 @@ char *split_me_daddy(char *line)
             new[i++] = '\0';
     }
     new[i++] = '\0';
-    new[i] = '\0';
+    // new[i] = '\0';
     free(line);
     return (new);
 }
@@ -108,17 +78,4 @@ char *clean_next_line(char *line)
         new[i++] = *line++;
     new[i] = '\0';
     return (new);
-}
-
-char *clean_eof(char *buffer)
-{
-    char *line;
-    int i;
-
-    i = 0;
-    line = clone_buf_in_line(buffer, -3);
-    if(!line)
-        return (NULL);
-    line = split_me_daddy(line);
-    return (line);
 }
