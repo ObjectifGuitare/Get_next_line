@@ -67,9 +67,11 @@ char *clean_next_line(char *line)
     if (!line)
         return (NULL);
     i = 0;
-    while(*line != '\n')
+    while(*line && *line != '\n')
         line++;
-    line += 1;
+    if (*line == '\0')
+        return (NULL);
+    line++;
     if (*line == '\0')
         return (NULL);
     new = malloc(ft_strlen(line) + 2);
