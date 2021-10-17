@@ -74,7 +74,7 @@ char *split_me_daddy(char *line)
     while (line[j] )
     {
         new[i++] = line[j];
-        if (line[j++] == '\n') // peut etre devrais ne split qu une seule ligne a la fois
+        if (line[j++] == '\n') // peut etre devrais je ne split qu une seule ligne a la fois
             new[i++] = '\0';
     }
     new[i++] = '\0';
@@ -99,10 +99,18 @@ char *clean_next_line(char *line, int read)
         j++;
     j++;
     if(line[j] == '\0' && line[j - 2] == '\n')
+    {
+        // printf("ligne 103 gnl utils\n");
         return (NULL);
-    if(line[j] == '\0' && read == 0)
-        return (NULL);
-    printf("%i |||%c|||\n", j, line[j]);
+    }
+    if(line[j] == '\0')
+    {
+        
+        if (read == 0)
+            return (NULL);
+        return (line);
+    }
+    // printf("%i |||%c|||\n", j, line[j]);
     new = malloc(ft_strlen(line) + 2);
     if(!new)
         return (NULL);

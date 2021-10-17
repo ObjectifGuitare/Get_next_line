@@ -3,10 +3,18 @@
 char *format_next_line(char *buffer, int i, int j)
 {
     static char *line;
+    static int end;
 
+    if (end)
+        return (NULL);
     if (j)
     {
-        // line = clean_next_line(line, i);
+        if(!i && clean_next_line(line, i) == NULL)
+        {
+            // printf("%s\n", line);
+            end = 1;
+            return (line);
+        }
         if(!i)
             free(buffer);
         if(!line || *line == '\0')
@@ -21,9 +29,9 @@ char *format_next_line(char *buffer, int i, int j)
     if(i == -2)
     {
 
-        printf("LA LIGNE ENVOYEE DANS CLEAN EST : |%s|\n", line);
-        line = clean_next_line(line, 1);
-        printf("LA LIGNE RENVOYEE PAR CLEAN EST : |%s|\n\n", line);
+        // printf("LA LIGNE ENVOYEE DANS CLEAN EST : |%s|\n", line);
+        line = clean_next_line(line, 1); // probleme se trouve dans le fait que parfois la valeur doit etre zero ici
+        // printf("LA LIGNE RENVOYEE PAR CLEAN EST : |%s|\n\n", line);
         return("ye");
     }
     // printf("la ligne avant strjoin : |%s|\n", line);
