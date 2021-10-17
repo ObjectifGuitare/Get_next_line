@@ -6,27 +6,29 @@ char *format_next_line(char *buffer, int i, int j)
 
     if (j)
     {
-        line = clean_next_line(line, i);
+        // line = clean_next_line(line, i);
         if(!i)
             free(buffer);
         if(!line || *line == '\0')
             return (NULL);
-        printf("LA LIGNE ENVOYEE DANS SPLIT EST: |%s|\n", line);
+        // printf("LA LIGNE ENVOYEE DANS SPLIT EST: |%s|\n", line);
         line = split_me_daddy(line);
-        printf("LA LIGNE RETOURNEE PAR SPLIT EST: |%s|\n", line);
+        // printf("LA LIGNE RETOURNEE PAR SPLIT EST: |%s|\n", line);
         return (line); 
     }
     if (i == -3)
         return (line);
-    // if(i == -2)
-    // {
+    if(i == -2)
+    {
 
-    //     printf("LA LIGNE ENVOYEE DANS CLEAN EST : |%s|\n", line);
-    //     line = clean_next_line(line);
-    //     printf("LA LIGNE RENVOYEE PAR CLEAN EST : |%s|\n\n", line);
-    //     return("ye");
-    // }
-    line = ft_strjoin(line, buffer);
+        printf("LA LIGNE ENVOYEE DANS CLEAN EST : |%s|\n", line);
+        line = clean_next_line(line, 1);
+        printf("LA LIGNE RENVOYEE PAR CLEAN EST : |%s|\n\n", line);
+        return("ye");
+    }
+    // printf("la ligne avant strjoin : |%s|\n", line);
+        line = ft_strjoin(line, buffer);
+    // printf("la ligne apres strjoin : |%s|\n", line);
     if (i == -1)
         return ("ye");
     return ("\0");
@@ -41,14 +43,13 @@ char *get_next_line(int fd)
     buffer = NULL;
     while(format_next_line(buffer, i, 0) && i < 1)
     {
-        buffer = malloc(BUFFER_SIZE + 2);
+        buffer = malloc(BUFFER_SIZE + 1);
         if (!buffer)
             return (NULL);
         i = read(fd, buffer, BUFFER_SIZE);
-        printf("LA VALEUR DE READ EST : |%i|\n", i);
+        // printf("LA VALEUR DE READ EST : |%i|\n", i);
         if(!i)
             return (format_next_line(buffer, i, 1));
-        buffer[i++] = '\0';
         buffer[i] = '\0';
         i = buffer_scan_bsn(buffer);
     }
@@ -57,11 +58,8 @@ char *get_next_line(int fd)
 
 int buffer_scan_bsn(char *buffer)
 {
-    int i;
-
-    i = 0;
-    while (buffer[i])
-        if (buffer[i++] == '\n')
+    while (*buffer)
+        if (*buffer++ == '\n')
             return (1);
     return (-1);
 }

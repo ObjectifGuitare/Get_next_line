@@ -15,8 +15,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char *format_next_line(char *buffer, int i, int j);
 char *split_me_daddy(char *line);
-char *clean_next_line(char *line, int b);
-char *clean_eof(char *buffer, int i);
+char *clean_next_line(char *line, int read);
 ssize_t strlen_bsn(char *s);
 
 #endif

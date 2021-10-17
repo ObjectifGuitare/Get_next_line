@@ -39,7 +39,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = -1;
 	j = 0;
 	if (!s2)
+    {
+        printf("coucou\n");
 		return (NULL);
+    }
 	s3 = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!s3)
 		return (NULL);
@@ -49,7 +52,7 @@ char	*ft_strjoin(char *s1, char *s2)
     i = -1;
     while (s2[++i] != '\0')
 		s3[j++] = s2[i];
-    s3[j] = '\0';
+    s3[j] = '\0'; // only one null byte at the end
     if (s1)
         free(s1);
     free(s2);
@@ -71,16 +74,17 @@ char *split_me_daddy(char *line)
     while (line[j] )
     {
         new[i++] = line[j];
-        if (line[j++] == '\n')
+        if (line[j++] == '\n') // peut etre devrais ne split qu une seule ligne a la fois
             new[i++] = '\0';
     }
     new[i++] = '\0';
     new[i] = '\0';
     free(line);
+    // printf("|||%c|||\n", new[6]);
     return (new);
 }
 
-char *clean_next_line(char *line, int b)
+char *clean_next_line(char *line, int read)
 {
     char *new;
     int j;
@@ -90,13 +94,15 @@ char *clean_next_line(char *line, int b)
         return (NULL);
     i = 0;
     j = 0;
+
     while(line[j])
         j++;
     j++;
     if(line[j] == '\0' && line[j - 2] == '\n')
         return (NULL);
-    if(line[j] == '\0' && b == 0)
+    if(line[j] == '\0' && read == 0)
         return (NULL);
+    printf("%i |||%c|||\n", j, line[j]);
     new = malloc(ft_strlen(line) + 2);
     if(!new)
         return (NULL);
@@ -106,6 +112,11 @@ char *clean_next_line(char *line, int b)
             new[i++] = line[j++];
         j++;
     }
+    new[i++] = '\0';
+    new[i] = '\0';
+    // printf(new);
+    //  printf("%i |||%c|||\n", j, line[j]);
     free(line);
+    // printf("|||%s|||\n", new);
     return (new);
 }
