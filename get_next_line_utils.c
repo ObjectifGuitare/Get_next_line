@@ -12,21 +12,17 @@ size_t	ft_strlen(const char *s)
 
 ssize_t strlen_bsn(char *s)
 {
-    size_t n;
+    ssize_t n;
 
     if (!s)
         return (-1);
     n = 0;
-    while (*s)
-    {
-        while (*s)
+        while (s && *s)
         {
             if(*s == '\n')
                 n++;
             s++;
         }
-        s++;
-    }
     return (n);
 }
 
@@ -40,7 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	j = 0;
 	if (!s2)
     {
-        printf("coucou\n");
+        // printf("coucou\n");
 		return (NULL);
     }
 	s3 = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
@@ -68,6 +64,7 @@ char *split_me_daddy(char *line)
     i = 0;
     j = 0;
 
+    // printf("%s\n", line);
     new = malloc(ft_strlen(line) + strlen_bsn(line) + 2);
     if(!new)
         return (NULL);
@@ -103,6 +100,7 @@ char *clean_next_line(char *line, int read)
         // printf("ligne 103 gnl utils\n");
         return (NULL);
     }
+    printf("bonjour\n");
     if(line[j] == '\0')
     {
         
@@ -111,7 +109,8 @@ char *clean_next_line(char *line, int read)
         return (line);
     }
     // printf("%i |||%c|||\n", j, line[j]);
-    new = malloc(ft_strlen(line) + 2);
+    // new = malloc(ft_strlen(line) + 2);
+    new = malloc(clean_line_len(line + 2));
     if(!new)
         return (NULL);
     while(line[j])
@@ -127,4 +126,22 @@ char *clean_next_line(char *line, int read)
     free(line);
     // printf("|||%s|||\n", new);
     return (new);
+}
+
+size_t clean_line_len(char *line)
+{
+    size_t len;
+
+    len = 0;
+     while (line && *line)
+    {
+        while (line && *line)
+        {
+            len++;
+            line++;
+        }
+        len++;
+        line++;
+    }
+    return len;
 }

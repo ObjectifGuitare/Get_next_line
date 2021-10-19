@@ -17,5 +17,6 @@ char *format_next_line(char *buffer, int i, int j);
 char *split_me_daddy(char *line);
 char *clean_next_line(char *line, int read);
 ssize_t strlen_bsn(char *s);
+size_t clean_line_len(char *line);
 
 #endif

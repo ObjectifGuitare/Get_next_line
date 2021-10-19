@@ -6,7 +6,11 @@ char *format_next_line(char *buffer, int i, int j)
     static int end;
 
     if (end)
+    {   
+        if(line)
+            free(line);
         return (NULL);
+    }
     if (j)
     {
         if(!i && clean_next_line(line, i) == NULL)
@@ -49,6 +53,8 @@ char *get_next_line(int fd)
 
     i = -2;
     buffer = NULL;
+    if (fd < 0)
+        return (NULL);
     while(format_next_line(buffer, i, 0) && i < 1)
     {
         buffer = malloc(BUFFER_SIZE + 1);
