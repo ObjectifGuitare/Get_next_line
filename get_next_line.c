@@ -4,6 +4,7 @@ char	*get_next_line(int fd)
 {
 	static char *warehouse = NULL;
 	char *buffer;
+	int line_len;
 	
 
 	buffer = NULL;
@@ -17,10 +18,11 @@ char	*get_next_line(int fd)
 			return ();
 		}
 		ft_strjoin(warehouse, buffer);
-		if (buffer_scan_bsn)
+		line_len = buffer_scan_bsn(warehouse);
+		if (line_len)
 		{
 			free(buffer);
-			buffer = next_line(warehouse);
+			buffer = next_line(warehouse, line_len);
 			clean_me_daddy(warehouse);
 			return (buffer);
 		}
@@ -31,9 +33,12 @@ char	*get_next_line(int fd)
 
 int buffer_scan_bsn(char *buffer)
 {
-    while (*buffer)
-        if (*buffer++ == '\n')
-            return (1);
+	int i;
+
+	i = 0;
+    while (buffer[i])
+        if (buffer[i++] == '\n')
+            return (i);
     return (-1);
 }
 
@@ -52,15 +57,21 @@ void	clean_me_daddy(char *warehouse)
 	return (ft_strjoin(cleaned_sweetie, warehouse));
 }
 
-char *next_line(char *warehouse)
+char *next_line(char *warehouse, int i)
 {
 	char *line;
+	int i;
 
-	line = malloc();
+	i = 0;
+	line = malloc(i + 1);
 	if (!line)
 	{
 		// free ce qui doit etre free
 		return (NULL);
 	}
-	while ()
+	while (*warehouse != '\n')
+		line[i++] = *warehouse++;
+	line[i++] = '\n';
+	line[i] = '\0';
+	return (line);
 }
