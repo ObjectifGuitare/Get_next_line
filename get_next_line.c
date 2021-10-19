@@ -1,67 +1,66 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seb <seb@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/10 00:53:22 by spatez            #+#    #+#             */
-/*   Updated: 2021/06/23 14:15:49 by seb              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-#include <stdio.h>
-
-ssize_t	ft_line_return_check(char *buffer)
+char	*get_next_line(int fd)
 {
-	// returns the index for the first occurence of \n
-	// -1 if \n not found or if buffer == null
-	int i;
-
-	if (!buffer)
-		return (-1);
-	i = -1;
-	while (buffer[++i])
-    {
-		if (buffer[i] == '\n')
-		{
-            if (i < BUFFER_SIZE - 1)
-                buffer[i] = '\0';
-            return (i);
-        }
-    }
-	return (-1);
-}
-
-char *ft_read(int fd, char *buffer)
-{
-    bool eof;
-    char *dst;
-
-	dst = NULL;
-	while (ft_line_return_check(dst) == -1)
-	{
-		buffer = malloc(BUFFER_SIZE + 1);
-		if (!buffer)
-			return (NULL);
-		if (!read(fd, buffer, BUFFER_SIZE))
-			eof = 1;
-		buffer[BUFFER_SIZE] = '\0';
-		dst = ft_strjoin(dst, buffer);
-		// printf("%s\n", dst);
-		// printf("%s\n", buffer);
-	}
-    return (dst);
-}
-
-int get_next_line(int fd, char **line)
-{
+	static char *warehouse = NULL;
 	char *buffer;
-	// check errors
+	
+
 	buffer = NULL;
-    *line = ft_read(fd, buffer);
-	printf("%s\n", *line);
-    return(1);
+	if (fd < 0 || read(fd, buffer, 0) == -1) // ainsi que OPEN MAX	
+		return(NULL);
+	while()
+	{
+		if (!read(fd, buffer, BUFFER_SIZE));
+		{
+			// free le buffer et la warehouse si necessaire
+			return ();
+		}
+		ft_strjoin(warehouse, buffer);
+		if (buffer_scan_bsn)
+		{
+			free(buffer);
+			buffer = next_line(warehouse);
+			clean_me_daddy(warehouse);
+			return (buffer);
+		}
+	}
+
+	return ();
+}
+
+int buffer_scan_bsn(char *buffer)
+{
+    while (*buffer)
+        if (*buffer++ == '\n')
+            return (1);
+    return (-1);
+}
+
+void	clean_me_daddy(char *warehouse)
+{
+	char *cleaned_sweetie;
+
+	cleaned_sweetie = malloc();
+	if (!cleaned_sweetie)
+	{
+		//free ce qui doit etre free
+		return (NULL);
+	}
+	while (*warehouse != '\n')
+		warehouse++;
+	return (ft_strjoin(cleaned_sweetie, warehouse));
+}
+
+char *next_line(char *warehouse)
+{
+	char *line;
+
+	line = malloc();
+	if (!line)
+	{
+		// free ce qui doit etre free
+		return (NULL);
+	}
+	while ()
 }

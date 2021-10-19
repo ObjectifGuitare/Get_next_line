@@ -1,25 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seb <seb@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/10 00:53:18 by spatez            #+#    #+#             */
-/*   Updated: 2021/06/23 14:16:38 by seb              ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
 
+
+#include <stdio.h>
+
+
+
+char *get_next_line(int fd);
+int buffer_scan_bsn(char *buffer);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-ssize_t	ft_line_return_check(char *buffer);
-char *ft_read(int fd, char *buffer);
-int	get_next_line(int fd, char **line);
+char	*ft_strjoin(char *s1, char *s2);
+char *format_next_line(char *buffer, int i, int j);
+char *split_me_daddy(char *line);
+char *clean_next_line(char *line, int read);
+ssize_t strlen_bsn(char *s);
+size_t clean_line_len(char *line);
 
 #endif
