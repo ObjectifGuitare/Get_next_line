@@ -12,34 +12,38 @@ char	*get_next_line(int fd)
 	line_len = 0;
 	while(!line_len)
 	{
-		printf("LE BUFFER AU DEBUT DE LA BOUCLE|%s|\n", buffer);
 		buffer = malloc(BUFFER_SIZE + 1);
         if (!buffer)
             return (NULL);
 		line_len = read(fd, buffer, BUFFER_SIZE);
-		buffer[BUFFER_SIZE] = '\0';
+		buffer[line_len] = '\0';
 		if (line_len == 0)
-			return (NULL);
-		if (line_len <= 0)
+		{
+			buffer = next_line(warehouse, line_len);
+			warehouse = clean_me_daddy(warehouse);
+			if (*buffer == '\0')
+				return (NULL);
+			return (buffer);
+			// return (NULL); //probleme ici quand la warehouse a deja tout en elle
+		}
+		if (line_len < 0)
 		{
 			free(buffer);
 			if (warehouse)
 				free(warehouse);
 			return (NULL);
 		}
-		printf("LE BUFF AVANT JOIN |%s|\n", buffer);
+		// return (bricolage(warehouse, buffer));
 		warehouse = ft_strjoin(warehouse, buffer);
 		printf("LE BUFF APRES JOIN |%s|\n", buffer);
 		line_len = buffer_scan_bsn(warehouse);
-		// printf("coucou\n");
-		// free(buffer);
 		if (line_len)
 		{
 			// printf("LE BUFF AVANT NEXT LINE |%s|\n", buffer);
 			buffer = next_line(warehouse, line_len);
 			// printf("LE BUFF APRES NEXT LINE |%s|\n", buffer);
 			// printf("WAREHOUSE AVANT CLEAN |%s|\n", warehouse);
-			warehouse = clean_me_daddy(warehouse); //probleme a partir de cette fonction car elle efface le buffer
+			warehouse = clean_me_daddy(warehouse);
 			// printf("LE BUFF APRES CLEAN |%s|\n", buffer);
 			// printf("WAREHOUSE APRES CLEAN |%s|\n", warehouse);
 			if (!buffer || !warehouse)
@@ -51,7 +55,6 @@ char	*get_next_line(int fd)
 					free(warehouse);
 				return (NULL);
 			}
-			// printf("le buffer renvoye est |%s|\n", buffer);
 			return (buffer);
 		}
 	}
