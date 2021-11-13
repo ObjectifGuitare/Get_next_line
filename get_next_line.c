@@ -69,7 +69,7 @@ char	*clean_me_daddy(char *warehouse)
 
 	i = 0;
 	j = 0;
-	while (warehouse[j] != '\n')
+	while (warehouse[j] && warehouse[j] != '\n')
 		j++;
 	new = malloc(ft_strlen(warehouse + j + 1) + 1);
 	if (!new)
