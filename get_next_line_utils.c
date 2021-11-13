@@ -12,6 +12,17 @@ size_t	ft_strlen(const char *s)
 	return (n);
 }
 
+int buffer_scan_bsn(char *buffer)
+{
+	int i;
+
+	i = 0;
+    while (buffer[i])
+        if (buffer[i++] == '\n')
+            return (i);
+    return (0);
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
@@ -40,4 +51,3 @@ char	*ft_strjoin(char *s1, char *s2)
 	// printf("coucou\n");
 	return (s3);
 }
-// peut etre recopier le strjoin de l ancienne version
