@@ -5,12 +5,14 @@ size_t	ft_strlen(const char *s)
 	size_t	n;
 
 	n = 0;
+	if (!s)
+		return (0);
 	while (s[n])
 		n++;
 	return (n);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
 	int		i;
@@ -18,22 +20,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = -1;
 	j = 0;
-	if (!s1 || !s2)
+	if (!s2)
 		return (NULL);
-	s3 = ft_calloc(1, (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	s3 = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!s3)
 		return (NULL);
-	while (s1[++i] != '\0')
-	{
-		s3[j] = s1[i];
-		j++;
-	}
+	if (s1)
+		while (s1[++i] != '\0')
+			s3[j++] = s1[i];
 	i = -1;
 	while (s2[++i] != '\0')
-	{
-		s3[j] = s2[i];
-		j++;
-	}
+		s3[j++] = s2[i];
+	s3[j] = '\0';
+	if (s1)
+        free(s1);
+	// printf("%s\n", s2);
+	// printf("LA FIN DE JOIN EST |%p|\n", &s2);
+    free(s2);
+	// printf("coucou\n");
 	return (s3);
 }
 // peut etre recopier le strjoin de l ancienne version
