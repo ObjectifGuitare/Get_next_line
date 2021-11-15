@@ -4,29 +4,38 @@ char	*get_next_line(int fd)
 {
 	static char *warehouse = NULL;
 	char *buffer;
+	int red;
 	int line_len;
 
 	buffer = NULL;
 	if (fd < 0 || read(fd, buffer, 0) == -1) // ainsi que OPEN MAX	
 		return(NULL);
+	red = 0;
 	line_len = 0;
 	while(!line_len)
 	{
 		buffer = malloc(BUFFER_SIZE + 1);
         if (!buffer)
             return (NULL);
-		line_len = read(fd, buffer, BUFFER_SIZE);
-		buffer[line_len] = '\0';
-		if (line_len == 0)
+		red = read(fd, buffer, BUFFER_SIZE);
+		buffer[red] = '\0';
+		warehouse = ft_strjoin(warehouse, buffer);
+		printf("LE BUFF APRES JOIN |%s|\n", buffer);
+		line_len = buffer_scan_bsn(warehouse);
+		if (red == 0 && line_len == 0)
 		{
+			if (*warehouse == '\0')
+				return (NULL);
+			printf("%s\n", warehouse);
 			buffer = next_line(warehouse, line_len);
 			warehouse = clean_me_daddy(warehouse);
-			if (*buffer == '\0')
-				return (NULL);
 			return (buffer);
+			// if (*buffer == '\0')
+			// 	return (NULL);
+			// return (buffer);
 			// return (NULL); //probleme ici quand la warehouse a deja tout en elle
 		}
-		if (line_len < 0)
+		if (red < 0)
 		{
 			free(buffer);
 			if (warehouse)
@@ -34,9 +43,6 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		// return (bricolage(warehouse, buffer));
-		warehouse = ft_strjoin(warehouse, buffer);
-		printf("LE BUFF APRES JOIN |%s|\n", buffer);
-		line_len = buffer_scan_bsn(warehouse);
 		if (line_len)
 		{
 			// printf("LE BUFF AVANT NEXT LINE |%s|\n", buffer);
@@ -87,6 +93,8 @@ char *next_line(char *warehouse, int len)
 	int i;
 
 	i = 0;
+	if (len == 0)
+		return (warehouse);
 	line = malloc(len + 1);
 	if (!line)
 		return (NULL);
