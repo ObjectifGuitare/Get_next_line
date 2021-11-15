@@ -72,7 +72,10 @@ char *send_next_line(int line_len, char *buffer, int red)
 	else
 	{
 		if (*warehouse == '\0')
+		{
+			free(warehouse);
 			return (NULL);
+		}
 		buffer = next_line(warehouse, line_len);
 		warehouse = clean_me_daddy(warehouse);
 		return (buffer);
