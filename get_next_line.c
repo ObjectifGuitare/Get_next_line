@@ -45,7 +45,7 @@ char	*clean_me_daddy(char *warehouse)
 	while (warehouse[++j] != '\0')
 		new[i++] = warehouse[j];
 	new[i] = '\0';
-	free(warehouse);
+	free(warehouse); // probleme de free une fois sur deux avec lui...
 	return (new);
 }
 

@@ -44,7 +44,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		s3[j++] = s2[i];
 	s3[j] = '\0';
 	if (s1)
-        free(s1);
+        free(s1); // possiblement des pb de free sur celui la
     free(s2);
 	return (s3);
 }
