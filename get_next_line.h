@@ -15,6 +15,10 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*clean_me_daddy(char *warehouse);
 char *next_line(char *warehouse, int i);
-// char *bricolage(char *warehouse, char *buffer);
+
+
+
+char *error(char *buffer, char *warehouse);
+char *send_next_line(int line_len, char *buffer, int red);
 
 #endif

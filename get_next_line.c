@@ -2,7 +2,6 @@
 
 char	*get_next_line(int fd)
 {
-	static char *warehouse = NULL;
 	char *buffer;
 	int red;
 	int line_len;
@@ -18,53 +17,16 @@ char	*get_next_line(int fd)
         if (!buffer)
             return (NULL);
 		red = read(fd, buffer, BUFFER_SIZE);
-		buffer[red] = '\0';
-		warehouse = ft_strjoin(warehouse, buffer);
-		printf("LE BUFF APRES JOIN |%s|\n", buffer);
-		line_len = buffer_scan_bsn(warehouse);
-		if (red == 0 && line_len == 0)
-		{
-			if (*warehouse == '\0')
-				return (NULL);
-			printf("%s\n", warehouse);
-			buffer = next_line(warehouse, line_len);
-			warehouse = clean_me_daddy(warehouse);
-			return (buffer);
-			// if (*buffer == '\0')
-			// 	return (NULL);
-			// return (buffer);
-			// return (NULL); //probleme ici quand la warehouse a deja tout en elle
-		}
-		if (red < 0)
-		{
-			free(buffer);
-			if (warehouse)
-				free(warehouse);
+		buffer = send_next_line(-1, buffer, red);
+		if (!buffer)
 			return (NULL);
-		}
-		// return (bricolage(warehouse, buffer));
-		if (line_len)
-		{
-			// printf("LE BUFF AVANT NEXT LINE |%s|\n", buffer);
-			buffer = next_line(warehouse, line_len);
-			// printf("LE BUFF APRES NEXT LINE |%s|\n", buffer);
-			// printf("WAREHOUSE AVANT CLEAN |%s|\n", warehouse);
-			warehouse = clean_me_daddy(warehouse);
-			// printf("LE BUFF APRES CLEAN |%s|\n", buffer);
-			// printf("WAREHOUSE APRES CLEAN |%s|\n", warehouse);
-			if (!buffer || !warehouse)
-			{
-				printf("DANGER ZONE\n");
-				if(buffer)
-					free(buffer);
-				if(warehouse)
-					free(warehouse);
-				return (NULL);
-			}
-			return (buffer);
-		}
+		line_len = buffer_scan_bsn(buffer);
+		if ((red == 0 && line_len == 0) || line_len)
+			return (send_next_line(line_len, buffer, red));
+		else
+			buffer = NULL;
 	}
-	return (warehouse);
+	return (NULL);
 }
 
 char	*clean_me_daddy(char *warehouse)
