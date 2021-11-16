@@ -41,7 +41,7 @@ char	*clean_me_daddy(char *warehouse)
 		j++;
 	if (warehouse[j] == '\0')
 	{
-		free(warehouse);
+		free(warehouse); // un free ici
 		return (NULL);
 	}
 	new = malloc(ft_strlen(warehouse + j + 1) + 1);
@@ -61,7 +61,10 @@ char *next_line(char *warehouse, int len)
 
 	i = 0;
 	if (len == 0)
-		return (warehouse);
+	{
+		line = ft_strdup(warehouse);
+		return (line);
+	}
 	line = malloc(len + 1);
 	if (!line)
 		return (NULL);
@@ -70,4 +73,22 @@ char *next_line(char *warehouse, int len)
 	line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = malloc(sizeof(*new) * (ft_strlen(s) + 1));
+	if (!new)
+		return (0);
+	while (s[i])
+	{
+		new[i] = s[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
 }

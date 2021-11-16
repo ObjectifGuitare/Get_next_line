@@ -15,7 +15,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*clean_me_daddy(char *warehouse);
 char *next_line(char *warehouse, int i);
-
+char	*ft_strdup(const char *s);
 
 
 char *error(char *buffer, char *warehouse);

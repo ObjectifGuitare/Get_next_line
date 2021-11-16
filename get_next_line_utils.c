@@ -45,15 +45,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	s3[j] = '\0';
 	if (s1)
         free(s1); // possiblement des pb de free sur celui la
-    free(s2);
+    free(s2); // un free ici
 	return (s3);
 }
 
 char *error(char *buffer, char *warehouse)
 {
-	free(buffer);
+	free(buffer); // ne cree des leaks nulle part quand on l enleve
 	if (warehouse)
-		free(warehouse);
+		free(warehouse); // free ici
 	return (NULL);
 }
 
@@ -65,7 +65,7 @@ char *send_next_line(int line_len, char *buffer, int red)
 	{
 		if (red == 0)
 		{
-			free(buffer);
+			free(buffer); // free ici
 			return (warehouse);
 		}
 		if (red < 0)
@@ -78,7 +78,7 @@ char *send_next_line(int line_len, char *buffer, int red)
 	{
 		if (*warehouse == '\0')
 		{
-			free(warehouse);
+			free(warehouse); // free ici
 			return (NULL);
 		}
 		buffer = next_line(warehouse, line_len);
