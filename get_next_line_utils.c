@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: spatez <spatez@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 19:52:28 by spatez            #+#    #+#             */
+/*   Updated: 2021/11/16 20:10:35 by spatez           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -12,15 +24,15 @@ size_t	ft_strlen(const char *s)
 	return (n);
 }
 
-int buffer_scan_bsn(char *buffer)
+int	buffer_scan_bsn(char *buffer)
 {
-	int i;
+	int	i;
 
 	i = 0;
-    while (buffer[i])
-        if (buffer[i++] == '\n')
-            return (i);
-    return (0);
+	while (buffer[i])
+		if (buffer[i++] == '\n')
+			return (i);
+	return (0);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -44,46 +56,42 @@ char	*ft_strjoin(char *s1, char *s2)
 		s3[j++] = s2[i];
 	s3[j] = '\0';
 	if (s1)
-        free(s1); // possiblement des pb de free sur celui la
-    free(s2); // un free ici
+		free(s1);
+	free(s2);
 	return (s3);
 }
 
-char *error(char *buffer, char *warehouse)
+char	*error(char *buffer, char *warehouse)
 {
-	free(buffer); // ne cree des leaks nulle part quand on l enleve
+	free(buffer);
 	if (warehouse)
-		free(warehouse); // free ici
+		free(warehouse);
 	return (NULL);
 }
 
-char *send_next_line(int line_len, char *buffer, int red)
+char	*send_next_line(int line_len, char *buffer, int red)
 {
-	static char *warehouse = NULL;
+	static char	*warehouse = NULL;
 
 	if (line_len == -1)
 	{
 		if (red == 0)
 		{
-			free(buffer); // free ici
+			free(buffer);
 			return (warehouse);
 		}
 		if (red < 0)
 			return (error(buffer, warehouse));
 		buffer[red] = '\0';
 		warehouse = ft_strjoin(warehouse, buffer);
-		return(warehouse);
+		return (warehouse);
 	}
-	else
+	if (*warehouse == '\0')
 	{
-		if (*warehouse == '\0')
-		{
-			free(warehouse); // free ici
-			return (NULL);
-		}
-		buffer = next_line(warehouse, line_len);
-		warehouse = clean_me_daddy(warehouse);
-		return (buffer);
+		free(warehouse);
+		return (NULL);
 	}
+	buffer = next_line(warehouse, line_len);
+	warehouse = clean_me_daddy(warehouse);
+	return (buffer);
 }
-

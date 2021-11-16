@@ -6,20 +6,20 @@
 
 int main()
 {
-    int fd;
+    // int fd;
     char *line;
     int i; 
     int b = 1;
 
     i = 1;
-    fd = open("tester/files/41_no_nl", O_RDONLY);
+    // fd = open("1", O_RDONLY);
     while(i)
     {
         printf("-------------------------------------------------\n-------------------------------------------------\n%i EME ITERATION DE GNL\n\n", b++);
-        line =  get_next_line(fd);
+        line =  get_next_line(1);
         printf("\nLA LINE DE FIN EST : |%s|\n", line);
         if (!line)
             i = 0;
     }
-    close(fd);
+    // close(fd);
 }
