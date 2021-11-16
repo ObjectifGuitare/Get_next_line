@@ -63,6 +63,11 @@ char *send_next_line(int line_len, char *buffer, int red)
 
 	if (line_len == -1)
 	{
+		if (red == 0)
+		{
+			free(buffer);
+			return (warehouse);
+		}
 		if (red < 0)
 			return (error(buffer, warehouse));
 		buffer[red] = '\0';
