@@ -12,7 +12,7 @@ int main()
     int b = 1;
 
     i = 1;
-    fd = open("file.txt", O_RDONLY);
+    fd = open("tester/files/41_no_nl", O_RDONLY);
     while(i)
     {
         printf("-------------------------------------------------\n-------------------------------------------------\n%i EME ITERATION DE GNL\n\n", b++);
